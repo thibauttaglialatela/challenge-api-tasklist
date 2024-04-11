@@ -1,9 +1,9 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
+import axios from "axios";
 
 export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async () => {
     try {
-        // todo: utiliser axios
-        const response = await fetch('https://jsonplaceholder.typicode.com/todos', {method: "GET"});
+        const response = await axios.get('https://jsonplaceholder.typicode.com/todos');
         return response.data;
     } catch (error) {
         console.error('erreur lors du chargement des données', error)
@@ -24,7 +24,7 @@ const taskSlice = createSlice({
         setTaskTitle(state, action) {
             state.task.title = action.payload
         },
-        addTask(state, action) {
+        addTask(state) {
             state.tasks.push({...state.task, title: state.task.title.trim(), id: state.id})
             state.task.title =  ""
             state.id++
