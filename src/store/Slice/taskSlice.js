@@ -1,7 +1,15 @@
-import {createSlice} from '@reduxjs/toolkit'
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
 
+export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async () => {
+    try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts', {method: "GET"});
+        return response.data;
+    } catch (error) {
+        console.error('erreur lors du chargement des données', error)
+    }
+})
 const taskSlice = createSlice({
-    name: "task",
+    name: "tasks",
     initialState: {
         task: {
             title: '',
@@ -31,6 +39,12 @@ const taskSlice = createSlice({
         deleteTask(state,action) {
             state.tasks = state.tasks.filter(task => task.id !== action.payload)
         }
+    },
+    extraReducers: builder => {
+        builder
+            .addCase(fetchTasks.fulfilled, (state, action) => {
+                state.task.title = action.payload
+            })
     }
 })
 
