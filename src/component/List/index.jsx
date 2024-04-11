@@ -1,11 +1,12 @@
 // path: taskList/src/component/List/index.jsx
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import TaskItem from "../TaskItem/index.jsx";
 import {selectTasks} from "../../store/selector/index.js";
 
 const List = () => {
 
-    const tasks = useSelector(selectTasks)
+    const tasks = useSelector(selectTasks);
+
 
     return (
         tasks.length > 0 ?
