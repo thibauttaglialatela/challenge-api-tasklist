@@ -2,7 +2,8 @@ import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
 
 export const fetchTasks = createAsyncThunk('tasks/fetchTasks', async () => {
     try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/posts', {method: "GET"});
+        // todo: utiliser axios
+        const response = await fetch('https://jsonplaceholder.typicode.com/todos', {method: "GET"});
         return response.data;
     } catch (error) {
         console.error('erreur lors du chargement des données', error)
@@ -43,7 +44,7 @@ const taskSlice = createSlice({
     extraReducers: builder => {
         builder
             .addCase(fetchTasks.fulfilled, (state, action) => {
-                state.task.title = action.payload
+                state.tasks = state.tasks.concat(action.payload)
             })
     }
 })

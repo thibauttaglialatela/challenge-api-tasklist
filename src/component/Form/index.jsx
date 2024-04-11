@@ -1,10 +1,12 @@
 // path: taskList/src/component/Form/index.jsx
-import {useDispatch} from "react-redux";
-import {} from "../../store/Slice/taskSlice.js";
+import {useDispatch, useSelector} from "react-redux";
+import {addTask, setTaskTitle} from "../../store/Slice/taskSlice.js";
+import {selectTaskTitle} from "../../store/selector/index.js";
 
 const Form = () => {
 
     const dispatch = useDispatch()
+    const title = useSelector(selectTaskTitle)
 
 
     const handleChange = (e) => {
